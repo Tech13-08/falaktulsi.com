@@ -1,13 +1,49 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #ff4f4f;
+  --primary-dark: #ff4f4f;
+  --secondary: #4fbaff;
+  --secondary-dark: #249be7;
+  --background: #0c0b0a;
+  --card: #171614;
+  --text: #e8e1dc;
+  --textSecondary: #a79f98;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+/* Custom scrollbar */
+.scrollbar-themed::-webkit-scrollbar {
+  width: 6px; /* thin scrollbar */
+}
+
+.scrollbar-themed::-webkit-scrollbar-track {
+  background: var(--card); /* use card background */
+  border-radius: 9999px;
+}
+
+.scrollbar-themed::-webkit-scrollbar-thumb {
+  background-color: var(--textSecondary); /* use secondary color */
+  border-radius: 9999px;
+  border: 2px solid var(--card); /* space around thumb */
+}
+
+.scrollbar-themed {
+  scrollbar-width: thin; /* Firefox */
+  scrollbar-color: var(--textSecondary) var(--card); /* thumb track */
 }
