@@ -83,7 +83,7 @@ const Home: React.FC = () => {
               </div>
             </div>
             <div className="flex justify-center mt-4">
-              <Link key="Blogs" to="/blogs">
+              <Link key="Blogs" to="/blog">
                 <Button className="h-12 text-center sm:w-fit w-full">
                   <span className="hidden [@media(min-width:406px)]:inline">
                     See More Blogs

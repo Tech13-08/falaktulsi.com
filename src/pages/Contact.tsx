@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import Button from "../components/Button";
 
-const SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID as string;
-const TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID as string;
-const PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY as string;
+const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
+const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
+const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
 
 const SUBJECT_PREFIX = "[Website Contact]";
 

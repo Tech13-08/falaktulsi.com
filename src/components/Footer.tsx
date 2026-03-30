@@ -1,7 +1,7 @@
 import React from "react";
-import { ReactComponent as DevpostIcon } from "../assets/Devpost.svg";
-import { ReactComponent as LinkedinIcon } from "../assets/Linkedin.svg";
-import { ReactComponent as GithubIcon } from "../assets/Github.svg";
+import DevpostIcon from "../assets/Devpost.svg?react";
+import LinkedinIcon from "../assets/Linkedin.svg?react";
+import GithubIcon from "../assets/Github.svg?react";
 import { ExternalLink } from "lucide-react";
 
 const Footer: React.FC = () => {
