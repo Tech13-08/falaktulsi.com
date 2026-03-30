@@ -1,37 +1,10 @@
 import React, { useState, useMemo } from "react";
 import ProjectCard from "../components/ProjectCard";
+import { projects } from "../content/projects";
 
 const Projects: React.FC = () => {
   const [query, setQuery] = useState("");
 
-  const projects = useMemo(
-    () => [
-      {
-        title: "AI Chatbot",
-        description:
-          "A chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models.A chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT modelsA chatbot that answers technical questions using GPT models",
-        code: "https://github.com/example/chatbot",
-        demo: "https://example.com/chatbot-demo",
-        image: "",
-      },
-      {
-        title: "Portfolio Website",
-        description: "A modern personal website built with React + Tailwind.",
-        code: "https://github.com/example/portfolio",
-      },
-      {
-        title: "Image Classifier",
-        description: "CNN model to classify images using TensorFlow.",
-        demo: "https://example.com/classifier",
-      },
-      {
-        title: "Rust CLI Tool",
-        description: "A fast command-line utility written in Rust.",
-        code: "https://github.com/example/rust-cli",
-      },
-    ],
-    [],
-  );
   const filteredProjects = useMemo(() => {
     if (!query.trim()) return projects;
 
@@ -42,15 +15,12 @@ const Projects: React.FC = () => {
         p.title.toLowerCase().includes(lowerQuery) ||
         p.description?.toLowerCase().includes(lowerQuery),
     );
-  }, [query, projects]);
-
-  const footerHeight = 24;
-  const maxGridHeight = `calc(100vh - ${footerHeight}rem)`;
+  }, [query]);
 
   return (
-    <div className="flex justify-center p-8">
-      <div className="w-full max-w-6xl flex flex-col gap-8">
-        <h1 className="text-4xl font-bold text-text mb-4 font-mono text-center">
+    <div className="h-full min-h-0 box-border flex justify-center p-6 overflow-hidden">
+      <div className="w-full max-w-6xl h-full min-h-0 flex flex-col gap-6 overflow-hidden">
+        <h1 className="text-4xl font-bold text-text font-mono text-center">
           Projects
         </h1>
         <input
@@ -58,16 +28,15 @@ const Projects: React.FC = () => {
           placeholder="Search projects..."
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          className="w-full p-3 border border-border bg-card rounded-lg text-text outline-none focus:border-secondary"
+          className="projects-search w-full p-3 border border-secondary/30 bg-card rounded-lg text-text outline-none focus:border-secondary"
         />
 
         <div
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center overflow-y-auto scrollbar-themed"
-          style={{ maxHeight: maxGridHeight }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 justify-items-center items-start auto-rows-max content-start overflow-y-auto scrollbar-projects pr-1 pb-2 flex-1 min-h-0"
         >
-          {filteredProjects.map((p, index) => (
+          {filteredProjects.map((p) => (
             <ProjectCard
-              key={index}
+              key={p.id}
               title={p.title}
               description={p.description}
               code={p.code}

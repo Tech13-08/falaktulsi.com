@@ -4,6 +4,7 @@ import TechnologiesModal from "../components/TechnologiesModal";
 import Button from "../components/Button";
 import Greeting from "../components/Greeting";
 import { Link } from "react-router-dom";
+import { projects } from "../content/projects";
 
 const technologies = [
   "Python",
@@ -20,10 +21,7 @@ const recentBlog = {
   date: "Nov 20, 2025",
 };
 
-const recentProject = {
-  title: "AI Chatbot",
-  description: "A chatbot that answers technical questions using GPT models.",
-};
+const recentProject = projects[0];
 
 const Home: React.FC = () => {
   const [showAll, setShowAll] = useState(false);

@@ -14,6 +14,7 @@
     "clsx": "^2.1.1",
     "fuse.js": "^7.1.0",
     "lucide-react": "^0.556.0",
+    "marked": "^17.0.5",
     "react": "^19.2.1",
     "react-dom": "^19.2.1",
     "react-router-dom": "^7.10.1",
@@ -24,7 +25,19 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "new-post": "node scripts/new-post.mjs",
+    "content-admin": "node scripts/content-admin.mjs",
+    "tags:list": "node scripts/content-admin.mjs tags list",
+    "tags:add": "node scripts/content-admin.mjs tags add",
+    "tags:remove": "node scripts/content-admin.mjs tags remove",
+    "blogs:list": "node scripts/content-admin.mjs blogs list",
+    "blogs:add-tag": "node scripts/content-admin.mjs blogs add-tag",
+    "blogs:remove-tag": "node scripts/content-admin.mjs blogs remove-tag",
+    "projects:list": "node scripts/content-admin.mjs projects list",
+    "projects:add": "node scripts/content-admin.mjs projects add",
+    "projects:update": "node scripts/content-admin.mjs projects update",
+    "projects:remove": "node scripts/content-admin.mjs projects remove"
   },
   "browserslist": {
     "production": [

@@ -6,7 +6,7 @@ import { ExternalLink } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
-    <footer className="flex justify-between items-center p-6 mt-auto">
+    <footer className="flex justify-between items-center p-6">
       <div className="text-text">Made by Falak Tulsi</div>
       <div className="flex space-x-4 text-text">
         <a

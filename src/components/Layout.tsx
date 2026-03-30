@@ -36,21 +36,29 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
 
   if (!themeLoaded) {
     return (
-      <div className="flex flex-col min-h-screen bg-background">
-        <Navigation />
-        <main className="flex flex-col justify-center flex-1">
+      <div className="h-screen flex flex-col overflow-hidden bg-background">
+        <div className="shrink-0">
+          <Navigation />
+        </div>
+        <main className="flex flex-col flex-1 min-h-0 overflow-hidden justify-center">
           {<Loading />}
         </main>
-        <Footer />
+        <div className="shrink-0">
+          <Footer />
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-background">
-      <Navigation />
-      <main className="flex flex-col justify-center flex-1">{children}</main>
-      <Footer />
+    <div className="h-screen flex flex-col overflow-hidden bg-background">
+      <div className="shrink-0">
+        <Navigation />
+      </div>
+      <main className="flex flex-col flex-1 min-h-0 overflow-hidden">{children}</main>
+      <div className="shrink-0">
+        <Footer />
+      </div>
     </div>
   );
 };

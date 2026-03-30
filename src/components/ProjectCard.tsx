@@ -41,7 +41,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   return (
-    <div className="bg-card rounded-xl shadow overflow-hidden flex flex-col w-full max-w-xs">
+    <div className="bg-card rounded-xl shadow overflow-hidden flex flex-col w-full max-w-xs min-h-[20rem]">
       {!expanded && (
         <div className="h-40 w-full">
           <img
