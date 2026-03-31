@@ -105,9 +105,9 @@ npm run projects:remove -- --id "my-project"
 List/add/remove homepage technologies:
 
 ```bash
-npm run technologies:list
-npm run technologies:add -- "Go"
-npm run technologies:remove -- "Go"
+npm run tech:list
+npm run tech:add -- "Go"
+npm run tech:remove -- "Go"
 ```
 
 Manage volunteering entries:
@@ -143,7 +143,7 @@ Power command (direct access to all subcommands):
 npm run content-admin -- tags list
 npm run content-admin -- blogs list
 npm run content-admin -- projects list
-npm run content-admin -- technologies list
+npm run content-admin -- tech list
 npm run content-admin -- volunteering list
 npm run content-admin -- education list
 npm run content-admin -- favorites list
