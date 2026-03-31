@@ -32,7 +32,7 @@ const About: React.FC = () => {
         </div>
 
         {/* Asymmetric Creative Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 auto-rows-max">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {/* Education - Left Column, Tall */}
           <div className="md:col-span-1 lg:col-span-1 p-8 rounded-xl shadow bg-card hover:shadow-lg transition-shadow">
             <h2 className="text-2xl font-bold mb-6 text-text font-mono flex items-center gap-2">
@@ -42,7 +42,7 @@ const About: React.FC = () => {
           </div>
 
           {/* Volunteering - Center/Right, Large, Static Height */}
-          <div className="md:col-span-2 lg:col-span-2 p-8 rounded-xl shadow bg-card border-l-4 border-secondary hover:shadow-lg transition-shadow min-h-[450px]">
+          <div className="md:col-span-2 lg:col-span-2 p-8 rounded-xl shadow bg-card border-l-4 border-secondary hover:shadow-lg transition-shadow h-fit min-h-[450px]">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 rounded-full bg-secondary" />
               <h2 className="text-2xl font-bold text-text font-mono">

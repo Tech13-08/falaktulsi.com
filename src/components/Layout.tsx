@@ -55,7 +55,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
       <div className="shrink-0">
         <Navigation />
       </div>
-      <main className="flex flex-col flex-1 min-h-0 overflow-hidden">{children}</main>
+      <main className="flex flex-col flex-1 min-h-0 overflow-hidden justify-center">{children}</main>
       <div className="shrink-0">
         <Footer />
       </div>
