@@ -38,9 +38,24 @@
     "projects:add": "node scripts/content-admin.mjs projects add",
     "projects:update": "node scripts/content-admin.mjs projects update",
     "projects:remove": "node scripts/content-admin.mjs projects remove",
+    "technologies:list": "node scripts/content-admin.mjs tech list",
+    "technologies:add": "node scripts/content-admin.mjs tech add",
+    "technologies:remove": "node scripts/content-admin.mjs tech remove",
     "tech:list": "node scripts/content-admin.mjs tech list",
     "tech:add": "node scripts/content-admin.mjs tech add",
-    "tech:remove": "node scripts/content-admin.mjs tech remove"
+    "tech:remove": "node scripts/content-admin.mjs tech remove",
+    "volunteering:list": "node scripts/content-admin.mjs volunteering list",
+    "volunteering:add": "node scripts/content-admin.mjs volunteering add",
+    "volunteering:update": "node scripts/content-admin.mjs volunteering update",
+    "volunteering:remove": "node scripts/content-admin.mjs volunteering remove",
+    "education:list": "node scripts/content-admin.mjs education list",
+    "education:add": "node scripts/content-admin.mjs education add",
+    "education:update": "node scripts/content-admin.mjs education update",
+    "education:remove": "node scripts/content-admin.mjs education remove",
+    "favorites:list": "node scripts/content-admin.mjs favorites list",
+    "favorites:add": "node scripts/content-admin.mjs favorites add",
+    "favorites:update": "node scripts/content-admin.mjs favorites update",
+    "favorites:remove": "node scripts/content-admin.mjs favorites remove"
   },
   "browserslist": {
     "production": [

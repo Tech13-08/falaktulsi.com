@@ -8,6 +8,9 @@ const taxonomyPath = path.join(contentDir, "blogTaxonomy.json");
 const blogDir = path.join(contentDir, "blog");
 const projectsPath = path.join(contentDir, "projects.json");
 const technologiesPath = path.join(contentDir, "technologies.json");
+const volunteeringPath = path.join(contentDir, "volunteering.json");
+const educationPath = path.join(contentDir, "education.json");
+const favoritesPath = path.join(contentDir, "favorites.json");
 
 const usage = `
 Content Admin Commands
@@ -32,6 +35,24 @@ Tech
   node scripts/content-admin.mjs tech list
   node scripts/content-admin.mjs tech add <name>
   node scripts/content-admin.mjs tech remove <name>
+
+Volunteering
+  node scripts/content-admin.mjs volunteering list
+  node scripts/content-admin.mjs volunteering add --org "Org" --role "Role" --years "2023,2024,2025" --link "https://..." --bullets "item 1|item 2"
+  node scripts/content-admin.mjs volunteering update --index 1 [--org "Org"] [--role "Role"] [--years "2023,2024,2025"] [--link "https://..."] [--bullets "item 1|item 2"]
+  node scripts/content-admin.mjs volunteering remove --index 1
+
+Education
+  node scripts/content-admin.mjs education list
+  node scripts/content-admin.mjs education add --title "School" --years "2021 - 2023" --details "Degree" --url "https://..." [--courses "Course 1|Course 2"]
+  node scripts/content-admin.mjs education update --index 1 [--title "School"] [--years "..."] [--details "..."] [--url "https://..."] [--courses "Course 1|Course 2"]
+  node scripts/content-admin.mjs education remove --index 1
+
+Favorites
+  node scripts/content-admin.mjs favorites list
+  node scripts/content-admin.mjs favorites add --label "Category" --reveal "Value"
+  node scripts/content-admin.mjs favorites update --index 1 [--label "Category"] [--reveal "Value"]
+  node scripts/content-admin.mjs favorites remove --index 1
 `;
 
 const normalizeTag = (tag) => tag.trim().toLowerCase();
@@ -236,6 +257,73 @@ const validateTechnologyName = (name) => {
   }
 
   return normalized;
+};
+
+const parseIndexFlag = (value, usageText) => {
+  const parsed = Number(value);
+  if (!Number.isInteger(parsed) || parsed < 1) {
+    console.error(usageText);
+    process.exit(1);
+  }
+  return parsed - 1;
+};
+
+const parseBullets = (raw) =>
+  String(raw || "")
+    .split("|")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+const isValidYearsFormat = (value) => {
+  if (!value || !String(value).trim()) return false;
+  const normalized = String(value).replace(/\s+/g, "");
+  return /^(\d{4}(?:-\d{4})?)(,(\d{4}(?:-\d{4})?))*$/.test(normalized);
+};
+
+const validateVolunteeringItem = (item) => {
+  if (!item.org?.trim() || !item.role?.trim() || !item.link?.trim()) {
+    console.error("Volunteering entry requires org, role, and link.");
+    process.exit(1);
+  }
+
+  if (item.years && !isValidYearsFormat(item.years)) {
+    console.error("Volunteering years must look like: 2023,2024,2025 or 2023-2025");
+    process.exit(1);
+  }
+
+  if (!isValidUrl(item.link)) {
+    console.error(`Invalid volunteering link: ${item.link}`);
+    process.exit(1);
+  }
+
+  if (!Array.isArray(item.bullets) || item.bullets.length === 0) {
+    console.error("Volunteering entry must include at least one bullet.");
+    process.exit(1);
+  }
+};
+
+const validateEducationItem = (item) => {
+  if (!item.title?.trim() || !item.years?.trim() || !item.details?.trim() || !item.url?.trim()) {
+    console.error("Education entry requires title, years, details, and url.");
+    process.exit(1);
+  }
+
+  if (item.courses && (!Array.isArray(item.courses) || item.courses.length === 0)) {
+    console.error("Education entry courses must be an array of at least one course if provided.");
+    process.exit(1);
+  }
+
+  if (!isValidUrl(item.url)) {
+    console.error(`Invalid education url: ${item.url}`);
+    process.exit(1);
+  }
+};
+
+const validateFavoriteItem = (item) => {
+  if (!item.label?.trim() || !item.reveal?.trim()) {
+    console.error("Favorite entry requires label and reveal.");
+    process.exit(1);
+  }
 };
 
 const handleTags = (args) => {
@@ -519,6 +607,232 @@ const handleTechnologies = (args) => {
   process.exit(1);
 };
 
+const handleVolunteering = (args) => {
+  const action = args[0];
+  const items = readJson(volunteeringPath);
+
+  if (action === "list") {
+    items.forEach((item, i) => {
+      console.log(
+        `${i + 1}. ${item.org} | ${item.role} | years: ${item.years || "-"} | bullets: ${item.bullets.length}`,
+      );
+    });
+    return;
+  }
+
+  if (action === "add") {
+    const flags = parseFlags(args.slice(1));
+    const nextItem = {
+      org: String(flags.org || "").trim(),
+      role: String(flags.role || "").trim(),
+      years: String(flags.years || "").trim(),
+      link: String(flags.link || "").trim(),
+      bullets: parseBullets(flags.bullets),
+    };
+
+    if (!nextItem.years) {
+      console.error(
+        'Usage: volunteering add --org "Org" --role "Role" --years "2023,2024,2025" --link "https://..." --bullets "item 1|item 2"',
+      );
+      process.exit(1);
+    }
+
+    validateVolunteeringItem(nextItem);
+    items.push(nextItem);
+    writeJson(volunteeringPath, items);
+    console.log(`Added volunteering entry: ${nextItem.org}`);
+    return;
+  }
+
+  if (action === "update") {
+    const flags = parseFlags(args.slice(1));
+    const index = parseIndexFlag(
+      flags.index,
+      'Usage: volunteering update --index 1 [--org "Org"] [--role "Role"] [--years "2023,2024,2025"] [--link "https://..."] [--bullets "item 1|item 2"]',
+    );
+
+    if (!items[index]) {
+      console.error(`Volunteering index not found: ${index + 1}`);
+      process.exit(1);
+    }
+
+    const current = items[index];
+    if (flags.org) current.org = String(flags.org).trim();
+    if (flags.role) current.role = String(flags.role).trim();
+    if (flags.years) current.years = String(flags.years).trim();
+    if (flags.link) current.link = String(flags.link).trim();
+    if (flags.bullets) current.bullets = parseBullets(flags.bullets);
+
+    validateVolunteeringItem(current);
+    writeJson(volunteeringPath, items);
+    console.log(`Updated volunteering entry #${index + 1}`);
+    return;
+  }
+
+  if (action === "remove") {
+    const flags = parseFlags(args.slice(1));
+    const index = parseIndexFlag(flags.index, 'Usage: volunteering remove --index 1');
+
+    if (!items[index]) {
+      console.error(`Volunteering index not found: ${index + 1}`);
+      process.exit(1);
+    }
+
+    items.splice(index, 1);
+    writeJson(volunteeringPath, items);
+    console.log(`Removed volunteering entry #${index + 1}`);
+    return;
+  }
+
+  console.error("Unknown volunteering command.");
+  console.log(usage);
+  process.exit(1);
+};
+
+const handleEducation = (args) => {
+  const action = args[0];
+  const items = readJson(educationPath);
+
+  if (action === "list") {
+    items.forEach((item, i) => {
+      console.log(`${i + 1}. ${item.title} | ${item.years}`);
+    });
+    return;
+  }
+
+  if (action === "add") {
+    const flags = parseFlags(args.slice(1));
+    const nextItem = {
+      title: String(flags.title || "").trim(),
+      years: String(flags.years || "").trim(),
+      details: String(flags.details || "").trim(),
+      url: String(flags.url || "").trim(),
+    };
+    if (flags.courses) {
+      nextItem.courses = parseBullets(flags.courses);
+    }
+
+    validateEducationItem(nextItem);
+    items.push(nextItem);
+    writeJson(educationPath, items);
+    console.log(`Added education entry: ${nextItem.title}`);
+    return;
+  }
+
+  if (action === "update") {
+    const flags = parseFlags(args.slice(1));
+    const index = parseIndexFlag(
+      flags.index,
+      'Usage: education update --index 1 [--title "School"] [--years "..."] [--details "..."] [--url "https://..."]',
+    );
+
+    if (!items[index]) {
+      console.error(`Education index not found: ${index + 1}`);
+      process.exit(1);
+    }
+
+    const current = items[index];
+    if (flags.title) current.title = String(flags.title).trim();
+    if (flags.courses) {
+      current.courses = parseBullets(flags.courses);
+    }
+    if (flags.years) current.years = String(flags.years).trim();
+    if (flags.details) current.details = String(flags.details).trim();
+    if (flags.url) current.url = String(flags.url).trim();
+
+    validateEducationItem(current);
+    writeJson(educationPath, items);
+    console.log(`Updated education entry #${index + 1}`);
+    return;
+  }
+
+  if (action === "remove") {
+    const flags = parseFlags(args.slice(1));
+    const index = parseIndexFlag(flags.index, 'Usage: education remove --index 1');
+
+    if (!items[index]) {
+      console.error(`Education index not found: ${index + 1}`);
+      process.exit(1);
+    }
+
+    items.splice(index, 1);
+    writeJson(educationPath, items);
+    console.log(`Removed education entry #${index + 1}`);
+    return;
+  }
+
+  console.error("Unknown education command.");
+  console.log(usage);
+  process.exit(1);
+};
+
+const handleFavorites = (args) => {
+  const action = args[0];
+  const items = readJson(favoritesPath);
+
+  if (action === "list") {
+    items.forEach((item, i) => {
+      console.log(`${i + 1}. ${item.label} -> ${item.reveal}`);
+    });
+    return;
+  }
+
+  if (action === "add") {
+    const flags = parseFlags(args.slice(1));
+    const nextItem = {
+      label: String(flags.label || "").trim(),
+      reveal: String(flags.reveal || "").trim(),
+    };
+
+    validateFavoriteItem(nextItem);
+    items.push(nextItem);
+    writeJson(favoritesPath, items);
+    console.log(`Added favorite: ${nextItem.label}`);
+    return;
+  }
+
+  if (action === "update") {
+    const flags = parseFlags(args.slice(1));
+    const index = parseIndexFlag(
+      flags.index,
+      'Usage: favorites update --index 1 [--label "Category"] [--reveal "Value"]',
+    );
+
+    if (!items[index]) {
+      console.error(`Favorites index not found: ${index + 1}`);
+      process.exit(1);
+    }
+
+    const current = items[index];
+    if (flags.label) current.label = String(flags.label).trim();
+    if (flags.reveal) current.reveal = String(flags.reveal).trim();
+
+    validateFavoriteItem(current);
+    writeJson(favoritesPath, items);
+    console.log(`Updated favorite #${index + 1}`);
+    return;
+  }
+
+  if (action === "remove") {
+    const flags = parseFlags(args.slice(1));
+    const index = parseIndexFlag(flags.index, 'Usage: favorites remove --index 1');
+
+    if (!items[index]) {
+      console.error(`Favorites index not found: ${index + 1}`);
+      process.exit(1);
+    }
+
+    items.splice(index, 1);
+    writeJson(favoritesPath, items);
+    console.log(`Removed favorite #${index + 1}`);
+    return;
+  }
+
+  console.error("Unknown favorites command.");
+  console.log(usage);
+  process.exit(1);
+};
+
 const [domain, ...args] = process.argv.slice(2);
 
 if (!domain) {
@@ -543,6 +857,21 @@ if (domain === "projects") {
 
 if (domain === "tech") {
   handleTechnologies(args);
+  process.exit(0);
+}
+
+if (domain === "volunteering") {
+  handleVolunteering(args);
+  process.exit(0);
+}
+
+if (domain === "education") {
+  handleEducation(args);
+  process.exit(0);
+}
+
+if (domain === "favorites") {
+  handleFavorites(args);
   process.exit(0);
 }
 

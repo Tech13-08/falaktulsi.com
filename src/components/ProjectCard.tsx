@@ -23,21 +23,70 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const [expanded, setExpanded] = useState(false);
   const descriptionLimit = 75;
 
-  const highlightMatch = (text: string, query?: string) => {
-    if (!query) return text;
+  const highlightMatch = (text: string, query?: string, limit?: number) => {
+    if (!query) {
+      if (limit && text.length > limit) {
+        return text.slice(0, limit) + "...";
+      }
+      return text;
+    }
 
     const regex = new RegExp(`(${query})`, "gi");
     const parts = text.split(regex);
+    const matchRegex = new RegExp(`^(${query})$`, "i");
 
-    return parts.map((part, i) =>
-      regex.test(part) ? (
-        <span key={i} className="bg-yellow-400/70 text-text font-bold">
-          {part}
-        </span>
-      ) : (
-        part
-      ),
-    );
+    if (!limit || text.length <= limit) {
+      return parts.map((part, i) =>
+        matchRegex.test(part) ? (
+          <span key={i} className="bg-yellow-400/70 text-text font-bold">
+            {part}
+          </span>
+        ) : (
+          part
+        ),
+      );
+    }
+
+    let charCount = 0;
+    const result: React.ReactNode[] = [];
+    let truncated = false;
+
+    for (let i = 0; i < parts.length; i++) {
+      const part = parts[i];
+      if (!part) continue;
+
+      const isMatch = matchRegex.test(part);
+
+      if (charCount >= limit) {
+        truncated = true;
+        break;
+      }
+
+      if (isMatch) {
+        result.push(
+          <span key={i} className="bg-yellow-400/70 text-text font-bold">
+            {part}
+          </span>
+        );
+        charCount += part.length;
+      } else {
+        if (charCount + part.length > limit) {
+          result.push(part.slice(0, limit - charCount));
+          charCount = limit;
+          truncated = true;
+          break;
+        } else {
+          result.push(part);
+          charCount += part.length;
+        }
+      }
+    }
+
+    if (truncated) {
+      result.push("...");
+    }
+
+    return result;
   };
 
   return (
@@ -59,12 +108,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="text-textSecondary text-sm flex-1 relative">
           {!expanded ? (
             <span>
-              {description.length > descriptionLimit
-                ? highlightMatch(
-                    description.slice(0, descriptionLimit) + "...",
-                    query,
-                  )
-                : highlightMatch(description, query)}{" "}
+              {highlightMatch(description, query, descriptionLimit)}{" "}
               {description.length > descriptionLimit && (
                 <button
                   className="text-textSecondary underline font-semibold inline"

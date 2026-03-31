@@ -1,0 +1,16 @@
+[
+  {
+    "title": "UC Riverside",
+    "years": "September 2022 - June 2025",
+    "details": "B.S. Computer Science",
+    "url": "https://www.ucr.edu/",
+    "courses": ["Software Engineering", "Intro to Embedded Systems", "Data Structures and Algorithms", "Intro to Artificial Intelligence", "GPU Computing & Programming", "Computer Architecture", "Operating Systems", "Compiler Design", "Database Management Systems"]
+  },
+  {
+    "title": "UC Riverside",
+    "years": "January 2026 - December 2026",
+    "details": "M.S. Computer Science",
+    "url": "https://www.ucr.edu/",
+    "courses": ["Advanced Operating Systems", "Cloud Computing & Cloud Networking", "Information Retrieval & Web Search", "Artifial Intelligence", "Design & Analysis of Algorithms", "Natural Language Processing"]
+  }
+]

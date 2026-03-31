@@ -109,6 +109,7 @@ const parseDateFromFileName = (fileName: string) => {
 };
 
 export const blogPosts: BlogPostItem[] = Object.entries(markdownModules)
+  .filter(([path]) => !path.endsWith("_template-technical-journey.md"))
   .map(([path, raw]) => {
     const fileName = path.split("/").pop() || "";
     const baseName = fileName.replace(/\.md$/, "");
@@ -132,7 +133,6 @@ export const blogPosts: BlogPostItem[] = Object.entries(markdownModules)
       content: markdown,
     };
   })
-  .filter((post) => !post.slug.startsWith("template"))
   .sort((a, b) => b.date.localeCompare(a.date));
 
 export const getBlogPostBySlug = (slug: string) =>

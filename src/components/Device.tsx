@@ -21,11 +21,20 @@ const Device: React.FC<DeviceProps> = ({
   const [screenText, setScreenText] = useState<string>("Loading...");
   const [isLoading, setIsLoading] = useState(false);
   const [currentTech, setCurrentTech] = useState<string>("");
+  const intervalRef = React.useRef<ReturnType<typeof setInterval> | null>(null);
 
   const getRandomTech = useCallback(
     () => technologies[Math.floor(Math.random() * technologies.length)],
     [technologies],
   );
+
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current);
+      }
+    };
+  }, []);
 
   const getNewRandomTech = useCallback(() => {
     let newTech = getRandomTech();
@@ -48,13 +57,13 @@ const Device: React.FC<DeviceProps> = ({
     let frameIndex = 0;
     setScreenText(loadingFrames[frameIndex]);
 
-    const interval = setInterval(() => {
+    intervalRef.current = setInterval(() => {
       frameIndex++;
 
       if (frameIndex < loadingFrames.length) {
         setScreenText(loadingFrames[frameIndex]);
       } else {
-        clearInterval(interval);
+        if (intervalRef.current) clearInterval(intervalRef.current);
         const newTech = getNewRandomTech();
         setScreenText(newTech);
         setCurrentTech(newTech);
@@ -91,7 +100,7 @@ const Device: React.FC<DeviceProps> = ({
   };
 
   return (
-    <div className="w-full flex-1 bg-card rounded-2xl shadow-lg p-4 flex flex-col items-center space-y-4 ">
+    <div className="w-full bg-card rounded-2xl shadow-lg p-4 flex flex-col items-center space-y-4">
       <div
         className="w-full text-center text-sm font-mono text-textSecondary rounded px-2 py-1 leading-none"
         style={{ backgroundColor: "rgba(232, 225, 220, 0.05)" }}

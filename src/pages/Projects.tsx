@@ -1,9 +1,18 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 import ProjectCard from "../components/ProjectCard";
 import { projects } from "../content/projects";
 
 const Projects: React.FC = () => {
+  const [searchParams] = useSearchParams();
   const [query, setQuery] = useState("");
+
+  useEffect(() => {
+    const queryParam = searchParams.get("q");
+    if (queryParam) {
+      setQuery(queryParam);
+    }
+  }, [searchParams]);
 
   const filteredProjects = useMemo(() => {
     if (!query.trim()) return projects;

@@ -20,7 +20,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row p-8 gap-8">
+    <div className="flex flex-col lg:flex-row p-8 gap-8 h-full overflow-y-auto scrollbar-themed">
       {showAll && (
         <TechnologiesModal
           technologies={technologies}
@@ -29,7 +29,7 @@ const Home: React.FC = () => {
       )}
       <div
         className="w-full lg:w-1/3 p-6 rounded-xl shadow bg-card
-                  flex flex-col justify-center
+                  flex flex-col justify-center lg:self-center
                   order-2 lg:order-none"
       >
         <Device
@@ -51,16 +51,15 @@ const Home: React.FC = () => {
             My name is <span className="text-secondary">Falak</span> and I am
             currently a{" "}
             <span className="text-secondary">Computer Science Master's student at UC Riverside</span>. I have a
-            strong passion for building intelligent systems that solve
-            real-world problems. I enjoy experimenting with new technologies,
-            contributing to open-source projects, and continuously learning to
-            push the boundaries of AI and software development.
+            strong passion for building intelligent systems that have real impact. I enjoy experimenting with new technologies,
+            building software I actually use, and continuously learning to
+            push the boundaries of AI and engineering.
           </p>
         </div>
 
         <div className="grid grid-cols-2 gap-4 items-stretch content-stretch">
           <div className="flex flex-col h-full">
-            <div className="flex-1 p-4 rounded shadow bg-card flex flex-col justify-between">
+            <Link to={`/blog/${recentBlog?.slug}`} className="flex-1 p-4 rounded shadow bg-card flex flex-col justify-between hover:shadow-lg transition-shadow">
               <div>
                 <h3 className="font-bold text-lg mb-2 text-text truncate lg:whitespace-normal">
                   {recentBlog?.title || "No blog posts yet"}
@@ -69,7 +68,7 @@ const Home: React.FC = () => {
                   {recentBlog?.date || "Add your first post to get started"}
                 </p>
               </div>
-            </div>
+            </Link>
             <div className="flex justify-center mt-4">
               <Link key="Blogs" to="/blog">
                 <Button className="h-12 text-center sm:w-fit w-full">
@@ -87,7 +86,7 @@ const Home: React.FC = () => {
           </div>
 
           <div className="flex flex-col h-full">
-            <div className="flex-1 p-4 rounded shadow bg-card flex flex-col justify-between">
+            <Link to={`/projects?q=${encodeURIComponent(recentProject?.title || "")}`} className="flex-1 p-4 rounded shadow bg-card flex flex-col justify-between hover:shadow-lg transition-shadow">
               <div>
                 <h3 className="font-bold text-lg mb-2 text-text truncate lg:whitespace-normal">
                   {recentProject?.title || "No projects yet"}
@@ -96,7 +95,7 @@ const Home: React.FC = () => {
                   {recentProject?.description || "Add your first project to highlight your work."}
                 </p>
               </div>
-            </div>
+            </Link>
             <div className="flex justify-center mt-4">
               <Link key="Projects" to="/projects">
                 <Button className="h-12 sm:w-fit w-full text-center leading-none">

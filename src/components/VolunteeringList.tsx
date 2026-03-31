@@ -1,46 +1,27 @@
 import React, { useState } from "react";
 import Button from "./Button";
+import volunteeringData from "../content/volunteering.json";
 
 interface VolunteeringItem {
   org: string;
   role: string;
+  years?: string;
   link: string;
   bullets: string[];
 }
 
-const volunteering: VolunteeringItem[] = [
-  {
-    org: "Cerritos Library",
-    role: "Tech Tutor",
-    link: "https://www.cerritoslibrary.us/",
-    bullets: [
-      "Helped students with computer basics",
-      "Explained programming fundamentals",
-      "Assisted elderly visitors with device setup",
-    ],
-  },
-  {
-    org: "Local Food Bank",
-    role: "Volunteer",
-    link: "https://www.foodbankoc.org/",
-    bullets: [
-      "Sorted and packaged donations",
-      "Distributed supplies to families",
-    ],
-  },
-  {
-    org: "Local Food Bank",
-    role: "Volunteer",
-    link: "https://www.foodbankoc.org/",
-    bullets: [
-      "Sorted and packaged donations",
-      "Distributed supplies to families",
-    ],
-  },
-];
+const volunteering: VolunteeringItem[] = volunteeringData as VolunteeringItem[];
 
 const VolunteeringList: React.FC = () => {
   const [index, setIndex] = useState(0);
+
+  if (volunteering.length === 0) {
+    return (
+      <div className="w-full p-4 rounded-xl bg-cardSecondary text-textSecondary">
+        No volunteering entries yet.
+      </div>
+    );
+  }
 
   const prev = () => {
     setIndex((i) => (i === 0 ? volunteering.length - 1 : i - 1));
@@ -67,7 +48,11 @@ const VolunteeringList: React.FC = () => {
     "
       >
         <h3 className="text-xl font-bold font-mono text-text">{current.org}</h3>
-        <p className="text-textSecondary mb-3">{current.role}</p>
+        <p className="text-textSecondary">{current.role}</p>
+        {current.years && (
+          <p className="text-sm text-textSecondary mb-3">Years: {current.years}</p>
+        )}
+        {!current.years && <div className="mb-3" />}
 
         <ul className="list-disc list-inside text-textSecondary">
           {current.bullets.map((b, i) => (

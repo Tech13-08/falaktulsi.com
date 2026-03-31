@@ -40,11 +40,28 @@ const BlogPost: React.FC = () => {
         <h1 className="text-4xl font-bold mt-4 mb-2 text-text font-mono">
           {post.title}
         </h1>
-        <p className="text-textSecondary mb-6">{post.date}</p>
+        <p className="text-textSecondary mb-3">{post.date}</p>
+        {post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-2 mb-6">
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-xs uppercase tracking-wide bg-background text-textSecondary px-2 py-1 rounded border border-secondary/20"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
         <div
           className="blog-content text-text"
           dangerouslySetInnerHTML={{ __html: html }}
         />
+        {post.keywords.length > 0 && (
+          <p className="mt-8 text-sm text-textSecondary">
+            Keywords: <span className="text-text">{post.keywords.join(", ")}</span>
+          </p>
+        )}
       </article>
     </div>
   );

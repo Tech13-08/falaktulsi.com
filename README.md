@@ -110,6 +110,33 @@ npm run technologies:add -- "Go"
 npm run technologies:remove -- "Go"
 ```
 
+Manage volunteering entries:
+
+```bash
+npm run volunteering:list
+npm run volunteering:add -- --org "Cerritos Library" --role "Tech Tutor" --years "2023,2024,2025" --link "https://www.cerritoslibrary.us/" --bullets "Helped students|Explained fundamentals"
+npm run volunteering:update -- --index 1 --role "Senior Tech Tutor" --years "2023-2025"
+npm run volunteering:remove -- --index 1
+```
+
+Manage education timeline entries:
+
+```bash
+npm run education:list
+npm run education:add -- --title "UC Riverside" --years "2025 - 2027" --details "M.S. Computer Science" --url "https://www.ucr.edu/"
+npm run education:update -- --index 1 --details "Computer Science AS-T"
+npm run education:remove -- --index 1
+```
+
+Manage favorites badges:
+
+```bash
+npm run favorites:list
+npm run favorites:add -- --label "Editor" --reveal "VS Code"
+npm run favorites:update -- --index 1 --reveal "Ferrari"
+npm run favorites:remove -- --index 1
+```
+
 Power command (direct access to all subcommands):
 
 ```bash
@@ -117,4 +144,7 @@ npm run content-admin -- tags list
 npm run content-admin -- blogs list
 npm run content-admin -- projects list
 npm run content-admin -- technologies list
+npm run content-admin -- volunteering list
+npm run content-admin -- education list
+npm run content-admin -- favorites list
 ```

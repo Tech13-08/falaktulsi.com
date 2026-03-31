@@ -9,5 +9,7 @@ export interface ProjectItem {
   image?: string;
 }
 
-export const projects: ProjectItem[] = projectsData as ProjectItem[];
+// The JSON data is being imported with an extra nesting level.
+// We need to flatten it to get the array of projects.
+export const projects: ProjectItem[] = (projectsData as any).flat() as ProjectItem[];
 

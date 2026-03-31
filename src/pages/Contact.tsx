@@ -6,8 +6,6 @@ const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID as string;
 const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID as string;
 const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY as string;
 
-const SUBJECT_PREFIX = "[Website Contact]";
-
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
 const Contact: React.FC = () => {
@@ -20,6 +18,8 @@ const Contact: React.FC = () => {
   const [success, setSuccess] = useState<string | null>(null);
 
   const [honeypot, setHoneypot] = useState("");
+
+  const [lastSubmission, setLastSubmission] = useState<number | null>(null);
 
   useEffect(() => {
     emailjs.init({
@@ -34,6 +34,10 @@ const Contact: React.FC = () => {
     }
     if (!EMAIL_REGEX.test(from.trim())) {
       setError("Please enter a valid email address.");
+      return false;
+    }
+    if (lastSubmission && Date.now() - lastSubmission < 60000) {
+      setError("Please wait a minute before sending another message.");
       return false;
     }
     setError(null);
@@ -55,13 +59,14 @@ const Contact: React.FC = () => {
 
     const templateParams = {
       from_email: from.trim(),
-      subject: `${SUBJECT_PREFIX} ${subject.trim()}`,
+      subject: `${subject.trim()}`,
       message: message.trim(),
     };
 
     try {
       await emailjs.send(SERVICE_ID, TEMPLATE_ID, templateParams);
       setSuccess("Message sent. Thanks!");
+      setLastSubmission(Date.now());
       setFrom("");
       setSubject("");
       setMessage("");
