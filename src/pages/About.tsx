@@ -9,7 +9,7 @@ const About: React.FC = () => {
     <div className="h-full min-h-0 box-border flex justify-center px-3 md:px-6 py-8 overflow-hidden">
       <div className="w-full max-w-6xl overflow-y-auto scrollbar-themed pr-1">
         {/* Hero Section - Full Width */}
-        <div className="p-8 mb-8 rounded-xl shadow bg-gradient-to-br from-card to-background border border-secondary/10">
+        <div className="p-8 mb-12 rounded-xl shadow bg-gradient-to-br from-card to-background border border-secondary/10">
           <div className="flex flex-col md:flex-row items-center gap-8">
             <img
               src={ProfileImage}
@@ -32,7 +32,7 @@ const About: React.FC = () => {
         </div>
 
         {/* Asymmetric Creative Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6 auto-rows-max">
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 auto-rows-max">
           {/* Education - Left Column, Tall */}
           <div className="md:col-span-1 lg:col-span-1 p-8 rounded-xl shadow bg-card hover:shadow-lg transition-shadow">
             <h2 className="text-2xl font-bold mb-6 text-text font-mono flex items-center gap-2">
@@ -41,8 +41,8 @@ const About: React.FC = () => {
             <EducationTimeline />
           </div>
 
-          {/* Volunteering - Center/Right, Large */}
-          <div className="md:col-span-2 lg:col-span-2 p-8 rounded-xl shadow bg-card border-l-4 border-secondary hover:shadow-lg transition-shadow">
+          {/* Volunteering - Center/Right, Large, Static Height */}
+          <div className="md:col-span-2 lg:col-span-2 p-8 rounded-xl shadow bg-card border-l-4 border-secondary hover:shadow-lg transition-shadow min-h-[450px]">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 rounded-full bg-secondary" />
               <h2 className="text-2xl font-bold text-text font-mono">
