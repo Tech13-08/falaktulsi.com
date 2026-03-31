@@ -47,7 +47,7 @@ const Blog: React.FC = () => {
 
   return (
     <div className="h-full min-h-0 box-border flex justify-center px-3 md:px-6 py-8 overflow-hidden">
-      <div className="w-full max-w-6xl flex flex-col gap-6 overflow-y-auto scrollbar-themed pr-1">
+      <div className="w-full max-w-6xl h-full min-h-0 flex flex-col gap-6 overflow-hidden">
         <div className="p-6 rounded-xl shadow bg-card">
           <h1 className="text-4xl font-bold mb-2 text-text font-mono">Blog</h1>
         </div>
@@ -102,34 +102,36 @@ const Blog: React.FC = () => {
           )}
         </div>
 
-        {filteredAndSortedPosts.map((post) => (
-          <article key={post.slug} className="p-6 rounded-xl shadow bg-card">
-            <p className="text-sm text-textSecondary mb-2">{post.date}</p>
-            <h2 className="text-2xl font-bold text-text mb-2">{post.title}</h2>
-            <p className="text-textSecondary mb-4">{post.summary}</p>
-            {post.tags.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
-                {post.tags.map((tag) => (
-                  <span
-                    key={`${post.slug}-${tag}`}
-                    className="px-2 py-1 rounded-full bg-background text-textSecondary text-xs border border-secondary/30"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
-            <Link to={`/blog/${post.slug}`} className="text-secondary hover:underline">
-              Read Post
-            </Link>
-          </article>
-        ))}
+        <div className="flex-1 min-h-0 overflow-y-auto scrollbar-themed pr-1 flex flex-col gap-6 pb-2">
+          {filteredAndSortedPosts.map((post) => (
+            <article key={post.slug} className="p-6 rounded-xl shadow bg-card">
+              <p className="text-sm text-textSecondary mb-2">{post.date}</p>
+              <h2 className="text-2xl font-bold text-text mb-2">{post.title}</h2>
+              <p className="text-textSecondary mb-4">{post.summary}</p>
+              {post.tags.length > 0 && (
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {post.tags.map((tag) => (
+                    <span
+                      key={`${post.slug}-${tag}`}
+                      className="px-2 py-1 rounded-full bg-background text-textSecondary text-xs border border-secondary/30"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+              <Link to={`/blog/${post.slug}`} className="text-secondary hover:underline">
+                Read Post
+              </Link>
+            </article>
+          ))}
 
-        {filteredAndSortedPosts.length === 0 && (
-          <div className="p-6 rounded-xl shadow bg-card text-textSecondary">
-            No posts match your current search/filter selection.
-          </div>
-        )}
+          {filteredAndSortedPosts.length === 0 && (
+            <div className="p-6 rounded-xl shadow bg-card text-textSecondary">
+              No posts match your current search/filter selection.
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );

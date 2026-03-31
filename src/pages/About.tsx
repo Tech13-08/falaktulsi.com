@@ -21,7 +21,7 @@ const About: React.FC = () => {
                 Falak Tulsi
               </h1>
               <p className="text-xl text-secondary font-semibold">
-                Software Developer
+                Software Engineer
               </p>
               <p className="text-textSecondary leading-relaxed max-w-2xl">
                 Passionate about building elegant software solutions, learning new technologies, 
@@ -42,7 +42,7 @@ const About: React.FC = () => {
           </div>
 
           {/* Volunteering - Center/Right, Large, Static Height */}
-          <div className="md:col-span-2 lg:col-span-2 p-8 rounded-xl shadow bg-card border-l-4 border-secondary hover:shadow-lg transition-shadow h-fit min-h-[450px]">
+          <div className="md:col-span-2 lg:col-span-2 p-8 rounded-xl shadow bg-card border-l-4 border-secondary hover:shadow-lg transition-shadow h-[480px] flex flex-col">
             <div className="flex items-center gap-3 mb-6">
               <div className="w-2 h-2 rounded-full bg-secondary" />
               <h2 className="text-2xl font-bold text-text font-mono">
@@ -53,7 +53,9 @@ const About: React.FC = () => {
               I actively volunteer at tech conferences and conventions, organizing events, 
               mentoring attendees, and fostering connections in the tech community.
             </p>
-            <VolunteeringList />
+            <div className="flex-1 min-h-0">
+              <VolunteeringList />
+            </div>
           </div>
 
           {/* Interests - Right Column */}

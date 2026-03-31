@@ -102,10 +102,19 @@ npm run projects:update -- --id "my-project" --name "My Project V2"
 npm run projects:remove -- --id "my-project"
 ```
 
+List/add/remove homepage technologies:
+
+```bash
+npm run technologies:list
+npm run technologies:add -- "Go"
+npm run technologies:remove -- "Go"
+```
+
 Power command (direct access to all subcommands):
 
 ```bash
 npm run content-admin -- tags list
 npm run content-admin -- blogs list
 npm run content-admin -- projects list
+npm run content-admin -- technologies list
 ```

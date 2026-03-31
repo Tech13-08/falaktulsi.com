@@ -53,7 +53,7 @@ const VolunteeringList: React.FC = () => {
   const current = volunteering[index];
 
   return (
-    <div className="flex flex-col items-center w-full mx-auto max-h-lg">
+    <div className="flex flex-col items-center w-full h-full min-h-0 mx-auto">
       <a
         href={current.link}
         target="_blank"
@@ -63,7 +63,7 @@ const VolunteeringList: React.FC = () => {
       text-text transition-all shadow
       border border-card hover:border-secondary 
       hover:shadow-lg
-      mb-4
+      mb-4 flex-1 overflow-y-auto
     "
       >
         <h3 className="text-xl font-bold font-mono text-text">{current.org}</h3>
@@ -76,7 +76,7 @@ const VolunteeringList: React.FC = () => {
         </ul>
       </a>
 
-      <div className="flex gap-4 mt-auto">
+      <div className="flex gap-4 mt-auto shrink-0">
         <Button onClick={prev}>← Prev</Button>
         <Button onClick={next}>Next →</Button>
       </div>

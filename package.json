@@ -37,7 +37,10 @@
     "projects:list": "node scripts/content-admin.mjs projects list",
     "projects:add": "node scripts/content-admin.mjs projects add",
     "projects:update": "node scripts/content-admin.mjs projects update",
-    "projects:remove": "node scripts/content-admin.mjs projects remove"
+    "projects:remove": "node scripts/content-admin.mjs projects remove",
+    "tech:list": "node scripts/content-admin.mjs tech list",
+    "tech:add": "node scripts/content-admin.mjs tech add",
+    "tech:remove": "node scripts/content-admin.mjs tech remove"
   },
   "browserslist": {
     "production": [

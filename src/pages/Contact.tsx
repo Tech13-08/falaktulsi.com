@@ -125,6 +125,28 @@ const Contact: React.FC = () => {
 
         {error && <p className="text-sm text-red-500 mt-1">{error}</p>}
         {success && <p className="text-sm text-green-500 mt-1">{success}</p>}
+
+        <p className="text-sm text-textSecondary mt-2">
+          Prefer direct contact? Reach me on{" "}
+          <a
+            href="https://www.linkedin.com/in/falak-tulsi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-secondary hover:underline"
+          >
+            LinkedIn
+          </a>{" "}
+          or{" "}
+          <a
+            href="https://github.com/Tech13-08"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-secondary hover:underline"
+          >
+            GitHub
+          </a>
+          .
+        </p>
       </div>
 
       <div className="w-full lg:w-1/2 flex justify-end">

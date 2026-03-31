@@ -3,7 +3,7 @@ title: Dash Cam Hardwire Journey Demo
 date: 2026-03-30
 summary: One-line summary of the project, challenges, and outcome.
 slug: dash-cam-hardwire-journey-demo
-tags: car, hardware, learning
+tags: car, hardware
 keywords: dash cam hardwire install, technical journey, troubleshooting
 ---
 

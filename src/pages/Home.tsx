@@ -5,23 +5,11 @@ import Button from "../components/Button";
 import Greeting from "../components/Greeting";
 import { Link } from "react-router-dom";
 import { projects } from "../content/projects";
+import { blogPosts } from "../content/blogPosts";
+import { technologies } from "../content/technologies";
 
-const technologies = [
-  "Python",
-  "Rust",
-  "Java",
-  "React",
-  "TypeScript",
-  "Tailwind",
-  "Node.js",
-];
-
-const recentBlog = {
-  title: "Understanding Transformers",
-  date: "Nov 20, 2025",
-};
-
-const recentProject = projects[0];
+const recentBlog = blogPosts[0];
+const recentProject = projects[projects.length - 1];
 
 const Home: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
@@ -75,9 +63,11 @@ const Home: React.FC = () => {
             <div className="flex-1 p-4 rounded shadow bg-card flex flex-col justify-between">
               <div>
                 <h3 className="font-bold text-lg mb-2 text-text truncate lg:whitespace-normal">
-                  {recentBlog.title}
+                  {recentBlog?.title || "No blog posts yet"}
                 </h3>
-                <p className="text-textSecondary text-sm">{recentBlog.date}</p>
+                <p className="text-textSecondary text-sm">
+                  {recentBlog?.date || "Add your first post to get started"}
+                </p>
               </div>
             </div>
             <div className="flex justify-center mt-4">
@@ -100,10 +90,10 @@ const Home: React.FC = () => {
             <div className="flex-1 p-4 rounded shadow bg-card flex flex-col justify-between">
               <div>
                 <h3 className="font-bold text-lg mb-2 text-text truncate lg:whitespace-normal">
-                  {recentProject.title}
+                  {recentProject?.title || "No projects yet"}
                 </h3>
                 <p className="text-textSecondary text-sm line-clamp-2 lg:line-clamp-none">
-                  {recentProject.description}
+                  {recentProject?.description || "Add your first project to highlight your work."}
                 </p>
               </div>
             </div>

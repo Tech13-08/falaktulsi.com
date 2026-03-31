@@ -7,6 +7,7 @@ const contentDir = path.join(rootDir, "src", "content");
 const taxonomyPath = path.join(contentDir, "blogTaxonomy.json");
 const blogDir = path.join(contentDir, "blog");
 const projectsPath = path.join(contentDir, "projects.json");
+const technologiesPath = path.join(contentDir, "technologies.json");
 
 const usage = `
 Content Admin Commands
@@ -26,6 +27,11 @@ Projects
   node scripts/content-admin.mjs projects add --name "Name" --description "Desc" [--source "url"] [--demo "url"] [--image "path"]
   node scripts/content-admin.mjs projects update --id "project-id" [--name "New"] [--description "New"] [--source "url"] [--demo "url"] [--image "path"]
   node scripts/content-admin.mjs projects remove --id "project-id"
+
+Tech
+  node scripts/content-admin.mjs tech list
+  node scripts/content-admin.mjs tech add <name>
+  node scripts/content-admin.mjs tech remove <name>
 `;
 
 const normalizeTag = (tag) => tag.trim().toLowerCase();
@@ -207,6 +213,29 @@ const validateProject = (project, existingIds = new Set()) => {
     errors.forEach((err) => console.error(`  - ${err}`));
     process.exit(1);
   }
+};
+
+const normalizeTechnologyName = (name) => name.trim();
+
+const validateTechnologyName = (name) => {
+  const normalized = normalizeTechnologyName(name);
+
+  if (!normalized) {
+    console.error("Technology name cannot be empty.");
+    process.exit(1);
+  }
+
+  if (normalized.length > 40) {
+    console.error("Technology name must be 40 characters or less.");
+    process.exit(1);
+  }
+
+  if (!/^[A-Za-z0-9.+#\-\s]+$/.test(normalized)) {
+    console.error("Technology name contains unsupported characters.");
+    process.exit(1);
+  }
+
+  return normalized;
 };
 
 const handleTags = (args) => {
@@ -443,6 +472,53 @@ const handleProjects = (args) => {
   process.exit(1);
 };
 
+const handleTechnologies = (args) => {
+  const action = args[0];
+  const technologies = readJson(technologiesPath);
+
+  if (action === "list") {
+    technologies.forEach((tech, index) => console.log(`${index + 1}. ${tech}`));
+    return;
+  }
+
+  if (action === "add") {
+    const tech = validateTechnologyName(args[1] || "");
+    const exists = technologies.some(
+      (item) => String(item).toLowerCase() === tech.toLowerCase(),
+    );
+
+    if (exists) {
+      console.log(`Technology already exists: ${tech}`);
+      return;
+    }
+
+    const next = [...technologies, tech].sort((a, b) => a.localeCompare(b));
+    writeJson(technologiesPath, next);
+    console.log(`Added technology: ${tech}`);
+    return;
+  }
+
+  if (action === "remove") {
+    const tech = validateTechnologyName(args[1] || "");
+    const next = technologies.filter(
+      (item) => String(item).toLowerCase() !== tech.toLowerCase(),
+    );
+
+    if (next.length === technologies.length) {
+      console.log(`Technology not found: ${tech}`);
+      return;
+    }
+
+    writeJson(technologiesPath, next);
+    console.log(`Removed technology: ${tech}`);
+    return;
+  }
+
+  console.error("Unknown technologies command.");
+  console.log(usage);
+  process.exit(1);
+};
+
 const [domain, ...args] = process.argv.slice(2);
 
 if (!domain) {
@@ -462,6 +538,11 @@ if (domain === "blogs") {
 
 if (domain === "projects") {
   handleProjects(args);
+  process.exit(0);
+}
+
+if (domain === "tech") {
+  handleTechnologies(args);
   process.exit(0);
 }
 
