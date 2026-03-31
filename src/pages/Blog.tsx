@@ -46,8 +46,8 @@ const Blog: React.FC = () => {
   };
 
   return (
-    <div className="h-full min-h-0 box-border flex justify-center px-4 md:px-8 py-8 overflow-hidden">
-      <div className="w-full max-w-4xl flex flex-col gap-6 overflow-y-auto scrollbar-themed pr-1">
+    <div className="h-full min-h-0 box-border flex justify-center px-3 md:px-6 py-8 overflow-hidden">
+      <div className="w-full max-w-6xl flex flex-col gap-6 overflow-y-auto scrollbar-themed pr-1">
         <div className="p-6 rounded-xl shadow bg-card">
           <h1 className="text-4xl font-bold mb-2 text-text font-mono">Blog</h1>
         </div>

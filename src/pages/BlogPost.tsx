@@ -32,8 +32,8 @@ const BlogPost: React.FC = () => {
   }
 
   return (
-    <div className="h-full min-h-0 box-border flex justify-center px-4 md:px-8 py-8 overflow-hidden">
-      <article className="w-full max-w-4xl p-6 rounded-xl shadow bg-card overflow-y-auto scrollbar-themed pr-1">
+    <div className="h-full min-h-0 box-border flex justify-center px-3 md:px-6 py-8 overflow-hidden">
+      <article className="w-full max-w-6xl p-8 rounded-xl shadow bg-card overflow-y-auto scrollbar-themed pr-1">
         <Link to="/blog" className="text-secondary hover:underline">
           {"<- Back to Blog"}
         </Link>
