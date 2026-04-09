@@ -153,3 +153,37 @@ code {
 .blog-content ol {
   list-style: decimal;
 }
+
+.blog-content a {
+  color: var(--secondary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 150ms ease;
+}
+
+.blog-content a:hover {
+  color: var(--secondary-dark);
+}
+
+.blog-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.95rem;
+}
+
+.blog-content thead th {
+  text-align: left;
+  color: var(--text);
+  background: color-mix(in srgb, var(--secondary) 12%, transparent);
+}
+
+.blog-content th,
+.blog-content td {
+  border: 1px solid color-mix(in srgb, var(--textSecondary) 35%, transparent);
+  padding: 0.6rem 0.75rem;
+}
+
+.blog-content tbody tr:nth-child(even) {
+  background: color-mix(in srgb, var(--card) 65%, transparent);
+}
