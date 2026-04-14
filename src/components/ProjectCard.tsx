@@ -22,20 +22,62 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const buttonWidth = "8rem";
   const [expanded, setExpanded] = useState(false);
   const descriptionLimit = 75;
+  const safeDescription = description || "";
 
-  const highlightMatch = (text: string, query?: string, limit?: number) => {
-    if (!query) {
-      if (limit && text.length > limit) {
-        return text.slice(0, limit) + "...";
-      }
-      return text;
+  const escapeRegExp = (value: string) =>
+    value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+  const buildExcerpt = (text: string, search: string, limit: number) => {
+    const trimmedSearch = search.trim();
+    if (!trimmedSearch || text.length <= limit) {
+      return text.length > limit ? `${text.slice(0, limit)}...` : text;
     }
 
-    const regex = new RegExp(`(${query})`, "gi");
-    const parts = text.split(regex);
-    const matchRegex = new RegExp(`^(${query})$`, "i");
+    const lowerText = text.toLowerCase();
+    const lowerSearch = trimmedSearch.toLowerCase();
+    const matchIndex = lowerText.indexOf(lowerSearch);
 
-    if (!limit || text.length <= limit) {
+    if (matchIndex === -1) {
+      return text.length > limit ? `${text.slice(0, limit)}...` : text;
+    }
+
+    const windowSize = Math.max(limit, trimmedSearch.length + 24);
+    const halfWindow = Math.floor(windowSize / 2);
+
+    let start = Math.max(0, matchIndex - halfWindow);
+    let end = Math.min(text.length, matchIndex + trimmedSearch.length + halfWindow);
+
+    while (start > 0 && !/\s/.test(text[start - 1])) {
+      start -= 1;
+    }
+
+    while (end < text.length && !/\s/.test(text[end])) {
+      end += 1;
+    }
+
+    const prefix = start > 0 ? "..." : "";
+    const suffix = end < text.length ? "..." : "";
+
+    return `${prefix}${text.slice(start, end).trim()}${suffix}`;
+  };
+
+  const highlightMatch = (text: string, query?: string, limit?: number) => {
+    const safeText = text || "";
+    const trimmedQuery = query?.trim();
+
+    if (!trimmedQuery) {
+      if (limit && safeText.length > limit) {
+        return safeText.slice(0, limit) + "...";
+      }
+      return safeText;
+    }
+
+    const escapedQuery = escapeRegExp(trimmedQuery);
+    const regex = new RegExp(`(${escapedQuery})`, "gi");
+    const parts = safeText.split(regex);
+    const matchRegex = new RegExp(`^(${escapedQuery})$`, "i");
+
+    if (!limit || safeText.length <= limit) {
       return parts.map((part, i) =>
         matchRegex.test(part) ? (
           <span key={i} className="bg-yellow-400/70 text-text font-bold">
@@ -89,6 +131,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     return result;
   };
 
+  const renderDescriptionPreview = () => {
+    if (!query) {
+      return highlightMatch(safeDescription, query, descriptionLimit);
+    }
+
+    return highlightMatch(
+      buildExcerpt(safeDescription, query, descriptionLimit),
+      query,
+    );
+  };
+
   return (
     <div className="bg-card rounded-xl shadow overflow-hidden flex flex-col w-full max-w-xs min-h-[20rem]">
       {!expanded && (
@@ -108,8 +161,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="text-textSecondary text-sm flex-1 relative">
           {!expanded ? (
             <span>
-              {highlightMatch(description, query, descriptionLimit)}{" "}
-              {description.length > descriptionLimit && (
+              {renderDescriptionPreview()} {" "}
+              {safeDescription.length > descriptionLimit && (
                 <button
                   className="text-textSecondary underline font-semibold inline"
                   onClick={() => setExpanded(true)}
@@ -121,10 +174,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           ) : (
             <>
               <div className="overflow-auto max-h-56 pr-1">
-                {highlightMatch(description, query)}
+                {highlightMatch(safeDescription, query)}
               </div>
 
-              {description.length > descriptionLimit && (
+              {safeDescription.length > descriptionLimit && (
                 <button
                   className="text-textSecondary underline font-semibold mt-2 inline-block"
                   onClick={() => setExpanded(false)}
