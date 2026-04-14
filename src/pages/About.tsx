@@ -10,7 +10,7 @@ const About: React.FC = () => {
       <div className="w-full max-w-6xl h-auto lg:h-full min-h-0 lg:overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-8 h-auto lg:h-full min-h-0">
           {/* Favorites Column - 30% */}
-          <div className="lg:col-span-3 p-6 rounded-xl shadow bg-card hover:shadow-lg transition-shadow h-[320px] lg:h-full lg:min-h-0 flex flex-col">
+          <div className="lg:col-span-3 p-6 rounded-xl shadow bg-card hover:shadow-lg transition-shadow h-[320px] lg:h-full lg:min-h-0 flex flex-col overflow-hidden">
             <h2 className="text-xl font-bold mb-5 text-text font-mono flex items-center gap-2">
               <span className="text-secondary">★</span> Favorites
             </h2>
