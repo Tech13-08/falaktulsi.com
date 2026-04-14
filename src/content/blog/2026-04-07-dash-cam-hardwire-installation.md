@@ -72,7 +72,7 @@ I had never worked on my car before, and professional installers were charging $
 | Initial front install costs | | $249.46 |
 | Refunded dashcam + polarized lens |  | −$143.75 |
 | Viofo A229 Duo (dual channel) | [Amazon](https://www.amazon.com/dp/B0CKX14L34?ref=ppx_yo2ov_dt_b_fed_asin_title) | $159.99 |
-| Polarized lens (reordered) | [Amazon](https://www.amazon.com/dp/B09MY9YHNV?ref=ppx_yo2ov_dt_b_fed_asin_title) | $16.99 |
+| Polarized lens (new size) | [Amazon](https://www.amazon.com/dp/B09MY9YHNV?ref=ppx_yo2ov_dt_b_fed_asin_title) | $16.99 |
 | USB-C to USB-C cable | Walmart | $11.87 |
 | Returned USB-C cable | Not needed | −$11.87 |
 | **Total Project Cost** | | **$282.69** |
