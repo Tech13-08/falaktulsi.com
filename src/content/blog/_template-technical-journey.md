@@ -9,8 +9,6 @@ keywords: __KEYWORDS__
 
 # __TITLE__
 
-## TL;DR
-
 Write 3-5 sentences summarizing what you attempted, what worked, what failed, and what outcome you reached.
 
 ## Why I Started This Project
@@ -18,25 +16,13 @@ Write 3-5 sentences summarizing what you attempted, what worked, what failed, an
 Explain your motivation and context.
 
 - What problem were you trying to solve?
-- What constraints did you have (budget, time, tools, skill level)?
 - What did success look like?
 
-## Scope and Constraints
+## Constraints
 
-Document what was in scope and out of scope.
-
-- In scope:
-- Out of scope:
 - Budget:
 - Time spent:
 
-## Initial Plan
-
-Describe your first plan before you started.
-
-1. Step one
-2. Step two
-3. Step three
 
 ## Tools, Parts, and References
 
@@ -89,37 +75,3 @@ Describe the final state clearly.
 - Performance/results:
 - Reliability notes:
 
-## What I Would Do Differently Next Time
-
-Be specific and practical.
-
-## Starter Checklist for Someone Doing This Next
-
-Give readers an actionable way to begin.
-
-- [ ] Prerequisites
-- [ ] Tools/parts to buy
-- [ ] Safety checks
-- [ ] First test to run
-
-## FAQ
-
-### Q1
-
-Answer.
-
-### Q2
-
-Answer.
-
-## Resources
-
-- [Link title](https://example.com)
-
-## Keywords (SEO)
-
-Repeat your target keywords naturally in one short paragraph.
-
----
-
-If useful, add diagrams, photos, or screenshots throughout to show each major step.
