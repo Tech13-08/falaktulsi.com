@@ -1,8 +1,18 @@
-[{
+[
+  {
     "id": "personal-website",
     "title": "Personal Website",
     "description": "The website you are on right now! A personal site built with React, TypeScript, and Tailwind CSS. It features a blog, project showcase, and a contact form. The content is managed through a custom Node.js CLI.",
     "code": "https://github.com/Tech13-08/falaktulsi.com",
     "demo": "https://falaktulsi.com",
     "image": "/images/personal-website-thumbnail.png"
-  }]
+  },
+  {
+    "id": "pemonitor",
+    "title": "PEMonitor",
+    "description": "Processor & Excursion Monitor: A real-time hardware monitoring dashboard and alert logger. It scrapes data from LibreHardwareMonitor on Windows, providing a web interface and a log that records critical hardware events.",
+    "code": "https://github.com/Tech13-08/pemonitor",
+    "demo": "https://pemonitor.falaktulsi.com",
+    "image": "/images/pemonitor-thumbnail.png"
+  }
+]

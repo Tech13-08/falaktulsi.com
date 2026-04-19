@@ -22,6 +22,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const buttonWidth = "8rem";
   const [expanded, setExpanded] = useState(false);
   const descriptionLimit = 75;
+  const seeMoreLabel = "See more";
+  const seeMoreReserveChars = 1;
+  const collapsedDescriptionLimit = Math.max(
+    24,
+    descriptionLimit - seeMoreReserveChars,
+  );
   const safeDescription = description || "";
 
   const escapeRegExp = (value: string) =>
@@ -133,13 +139,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
   const renderDescriptionPreview = () => {
     if (!query) {
-      return highlightMatch(safeDescription, query, descriptionLimit);
+      return highlightMatch(safeDescription, query, collapsedDescriptionLimit);
     }
 
     return highlightMatch(
-      buildExcerpt(safeDescription, query, descriptionLimit),
+      buildExcerpt(safeDescription, query, collapsedDescriptionLimit),
       query,
     );
+  };
+
+  const handleImageError = (event: React.SyntheticEvent<HTMLImageElement>) => {
+    event.currentTarget.onerror = null;
+    event.currentTarget.src = DefaultImage;
   };
 
   return (
@@ -149,7 +160,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <img
             src={image || DefaultImage}
             alt={title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-fill"
+            onError={handleImageError}
           />
         </div>
       )}
@@ -160,24 +172,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </h3>
         <div className="text-textSecondary text-sm flex-1 relative">
           {!expanded ? (
-            <span>
-              {renderDescriptionPreview()} {" "}
-              {safeDescription.length > descriptionLimit && (
+            <div className="leading-5">
+              <span>{renderDescriptionPreview()} </span>
+              {safeDescription.length > collapsedDescriptionLimit && (
                 <button
                   className="text-textSecondary underline font-semibold inline"
                   onClick={() => setExpanded(true)}
                 >
-                  see more
+                  {seeMoreLabel}
                 </button>
               )}
-            </span>
+            </div>
           ) : (
             <>
               <div className="overflow-auto max-h-56 pr-1">
                 {highlightMatch(safeDescription, query)}
               </div>
 
-              {safeDescription.length > descriptionLimit && (
+              {safeDescription.length > collapsedDescriptionLimit && (
                 <button
                   className="text-textSecondary underline font-semibold mt-2 inline-block"
                   onClick={() => setExpanded(false)}

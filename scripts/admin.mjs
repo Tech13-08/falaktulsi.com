@@ -16,43 +16,43 @@ const usage = `
 Content Admin Commands
 
 Tags
-  node scripts/content-admin.mjs tags list
-  node scripts/content-admin.mjs tags add <tag>
-  node scripts/content-admin.mjs tags remove <tag>
+  node scripts/admin.mjs tags list
+  node scripts/admin.mjs tags add <tag>
+  node scripts/admin.mjs tags remove <tag>
 
 Blogs
-  node scripts/content-admin.mjs blogs list
-  node scripts/content-admin.mjs blogs add-tag <slug> <tag>
-  node scripts/content-admin.mjs blogs remove-tag <slug> <tag>
+  node scripts/admin.mjs blogs list
+  node scripts/admin.mjs blogs add-tag <slug> <tag>
+  node scripts/admin.mjs blogs remove-tag <slug> <tag>
 
 Projects
-  node scripts/content-admin.mjs projects list
-  node scripts/content-admin.mjs projects add --name "Name" --description "Desc" [--source "url"] [--demo "url"] [--image "path"]
-  node scripts/content-admin.mjs projects update --id "project-id" [--name "New"] [--description "New"] [--source "url"] [--demo "url"] [--image "path"]
-  node scripts/content-admin.mjs projects remove --id "project-id"
+  node scripts/admin.mjs projects list
+  node scripts/admin.mjs projects add --name "Name" --description "Desc" [--source "url"] [--demo "url"] [--image "path"]
+  node scripts/admin.mjs projects update --id "project-id" [--name "New"] [--description "New"] [--source "url"] [--demo "url"] [--image "path"]
+  node scripts/admin.mjs projects remove --id "project-id"
 
 Tech
-  node scripts/content-admin.mjs tech list
-  node scripts/content-admin.mjs tech add <name>
-  node scripts/content-admin.mjs tech remove <name>
+  node scripts/admin.mjs tech list
+  node scripts/admin.mjs tech add <name>
+  node scripts/admin.mjs tech remove <name>
 
 Volunteering
-  node scripts/content-admin.mjs volunteering list
-  node scripts/content-admin.mjs volunteering add --org "Org" --role "Role" --years "2023,2024,2025" --link "https://..." --bullets "item 1|item 2"
-  node scripts/content-admin.mjs volunteering update --index 1 [--org "Org"] [--role "Role"] [--years "2023,2024,2025"] [--link "https://..."] [--bullets "item 1|item 2"]
-  node scripts/content-admin.mjs volunteering remove --index 1
+  node scripts/admin.mjs volunteering list
+  node scripts/admin.mjs volunteering add --org "Org" --role "Role" --years "2023,2024,2025" --link "https://..." --bullets "item 1|item 2"
+  node scripts/admin.mjs volunteering update --index 1 [--org "Org"] [--role "Role"] [--years "2023,2024,2025"] [--link "https://..."] [--bullets "item 1|item 2"]
+  node scripts/admin.mjs volunteering remove --index 1
 
 Education
-  node scripts/content-admin.mjs education list
-  node scripts/content-admin.mjs education add --title "School" --years "2021 - 2023" --details "Degree" --url "https://..." [--courses "Course 1|Course 2"]
-  node scripts/content-admin.mjs education update --index 1 [--title "School"] [--years "..."] [--details "..."] [--url "https://..."] [--courses "Course 1|Course 2"]
-  node scripts/content-admin.mjs education remove --index 1
+  node scripts/admin.mjs education list
+  node scripts/admin.mjs education add --title "School" --years "2021 - 2023" --details "Degree" --url "https://..." [--courses "Course 1|Course 2"]
+  node scripts/admin.mjs education update --index 1 [--title "School"] [--years "..."] [--details "..."] [--url "https://..."] [--courses "Course 1|Course 2"]
+  node scripts/admin.mjs education remove --index 1
 
 Favorites
-  node scripts/content-admin.mjs favorites list
-  node scripts/content-admin.mjs favorites add --label "Category" --reveal "Value"
-  node scripts/content-admin.mjs favorites update --index 1 [--label "Category"] [--reveal "Value"]
-  node scripts/content-admin.mjs favorites remove --index 1
+  node scripts/admin.mjs favorites list
+  node scripts/admin.mjs favorites add --label "Category" --reveal "Value"
+  node scripts/admin.mjs favorites update --index 1 [--label "Category"] [--reveal "Value"]
+  node scripts/admin.mjs favorites remove --index 1
 `;
 
 const normalizeTag = (tag) => tag.trim().toLowerCase();
@@ -81,7 +81,8 @@ const parseFlags = (args) => {
     const value = args[i + 1];
 
     if (!value || value.startsWith("--")) {
-      flags[key] = true;
+      // Missing value means "clear this field" for update commands.
+      flags[key] = "";
       continue;
     }
 
@@ -91,6 +92,8 @@ const parseFlags = (args) => {
 
   return flags;
 };
+
+const normalizeProjectImagePath = (value) => "/images/" + String(value || "").trim();
 
 const parseFrontmatter = (raw) => {
   const match = raw.match(/^---\n([\s\S]*?)\n---\n?/);
@@ -487,7 +490,7 @@ const handleProjects = (args) => {
       description,
       ...(flags.source ? { code: String(flags.source) } : {}),
       ...(flags.demo ? { demo: String(flags.demo) } : {}),
-      ...(flags.image ? { image: String(flags.image) } : {}),
+      ...(flags.image ? { image: normalizeProjectImagePath(flags.image) } : {}),
     };
 
     validateProject(nextProject, existingIds);
@@ -520,7 +523,7 @@ const handleProjects = (args) => {
     if (flags.description) current.description = String(flags.description).trim();
     if (flags.source) current.code = String(flags.source).trim();
     if (flags.demo) current.demo = String(flags.demo).trim();
-    if (flags.image) current.image = String(flags.image).trim();
+    if (flags.image) current.image = normalizeProjectImagePath(flags.image);
 
     if (flags.source === "") delete current.code;
     if (flags.demo === "") delete current.demo;
