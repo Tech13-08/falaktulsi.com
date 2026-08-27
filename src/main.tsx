@@ -10,9 +10,11 @@ if (redirectPath) {
   window.history.replaceState({}, "", redirectPath);
 }
 
+const basename = import.meta.env.BASE_URL;
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <App />
     </BrowserRouter>
   </React.StrictMode>,
