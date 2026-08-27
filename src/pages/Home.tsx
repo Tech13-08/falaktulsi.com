@@ -49,7 +49,8 @@ const Home: React.FC = () => {
           </h1>
           <p className="text-lg text-textSecondary">
             My name is <span className="text-secondary">Falak</span> and I am
-            currently a{" "}
+            currently an{" "}
+            <span className="text-secondary">AI Engineer Intern at Juniper Square</span> and a{" "}
             <span className="text-secondary">Computer Science Master's student at UC Riverside</span>. I have a
             strong passion for building intelligent systems that have real impact. I enjoy experimenting with new technologies,
             building software I actually use, and continuously learning to

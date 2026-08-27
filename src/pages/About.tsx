@@ -33,7 +33,7 @@ const About: React.FC = () => {
                     Falak Tulsi
                   </h1>
                   <p className="text-xl text-secondary font-semibold">
-                    Software Engineer
+                    AI Engineer Intern at Juniper Square
                   </p>
                   <p className="text-textSecondary leading-relaxed max-w-2xl">
                     Passionate about building elegant software solutions, learning new technologies,
