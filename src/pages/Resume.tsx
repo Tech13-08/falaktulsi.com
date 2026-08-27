@@ -1,13 +1,16 @@
 import React from "react";
 
 const Resume: React.FC = () => {
+  const baseUrl = import.meta.env.BASE_URL || "/";
+  const resumeUrl = baseUrl + (baseUrl.endsWith("/") ? "" : "/") + "resume.pdf";
+
   return (
     <div className="h-full min-h-0 box-border flex justify-center px-3 md:px-6 py-6 overflow-hidden">
       <div className="w-full max-w-6xl h-full min-h-0 flex flex-col gap-4">
         <div className="flex items-center justify-between p-4 rounded-xl shadow bg-card">
           <h1 className="text-2xl md:text-3xl font-bold text-text font-mono">Resume</h1>
           <a
-            href="/resume.pdf"
+            href={resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-secondary hover:underline"
@@ -18,7 +21,7 @@ const Resume: React.FC = () => {
 
         <div className="flex-1 min-h-0 rounded-xl shadow bg-card overflow-hidden">
           <iframe
-            src="/resume.pdf#view=FitH"
+            src={`${resumeUrl}#view=FitH`}
             title="Resume PDF"
             className="w-full h-full border-0"
           />
@@ -28,7 +31,7 @@ const Resume: React.FC = () => {
           If the resume preview does not load in your browser, use the
           {" "}
           <a
-            href="/resume.pdf"
+            href={resumeUrl}
             target="_blank"
             rel="noopener noreferrer"
             className="text-secondary hover:underline"
