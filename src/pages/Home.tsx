@@ -48,10 +48,8 @@ const Home: React.FC = () => {
             <Greeting trigger={greetTrigger} />
           </h1>
           <p className="text-lg text-textSecondary">
-            My name is <span className="text-secondary">Falak</span> and I am
-            currently an{" "}
-            <span className="text-secondary">AI Engineer Intern at Juniper Square</span> and a{" "}
-            <span className="text-secondary">Computer Science Master's student at UC Riverside</span>. I have a
+            My name is <span className="text-secondary">Falak</span> and I am a{" "}
+            <span className="text-secondary">Computer Science Master's student at UC Riverside</span>. I recently completed an AI Engineer internship at Juniper Square (June–August 2026). I have a
             strong passion for building intelligent systems that have real impact. I enjoy experimenting with new technologies,
             building software I actually use, and continuously learning to
             push the boundaries of AI and engineering.
