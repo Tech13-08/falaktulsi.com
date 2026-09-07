@@ -20,7 +20,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row p-8 gap-8 h-full overflow-y-auto scrollbar-themed">
+    <div className="flex flex-col lg:flex-row p-8 gap-8 h-full overflow-y-auto lg:overflow-hidden scrollbar-themed">
       {showAll && (
         <TechnologiesModal
           technologies={technologies}
@@ -40,35 +40,51 @@ const Home: React.FC = () => {
         />
       </div>
       <div
-        className="flex-1 flex flex-col gap-8 justify-center 
+        className="flex-1 flex flex-col gap-8 justify-center min-h-0
                   order-1 lg:order-none"
       >
-        <div>
-          <h1 className="text-4xl font-bold mb-4 text-text font-mono">
+        <div className="min-h-0">
+          <h1 className="text-4xl font-bold mb-2 text-text font-mono">
             <Greeting trigger={greetTrigger} />
           </h1>
           <p className="text-lg text-textSecondary">
             My name is <span className="text-secondary">Falak</span> and I am a{" "}
-            <span className="text-secondary">Computer Science Master's student at UC Riverside</span>. I recently completed an AI Engineer internship at Juniper Square (June–August 2026). I have a
-            strong passion for building intelligent systems that have real impact. I enjoy experimenting with new technologies,
+            <span className="text-secondary">Computer Science Master's student at UC Riverside</span>. I recently completed an AI Engineer internship at Juniper Square (June–August 2026).{" "}
+            <span className="text-secondary">I'm open to full-time Software Engineer & AI roles.</span>{" "}
+            I have a strong passion for building intelligent systems that have real impact. I enjoy experimenting with new technologies,
             building software I actually use, and continuously learning to
             push the boundaries of AI and engineering.
           </p>
+          <div className="mt-3 flex flex-wrap gap-2">
+            <Link to="/resume">
+              <Button variant="primary" size="sm">
+                View resume
+              </Button>
+            </Link>
+            <Link to="/contact">
+              <Button variant="ghost" size="sm">
+                Contact
+              </Button>
+            </Link>
+          </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-4 items-stretch content-stretch">
-          <div className="flex flex-col h-full">
-            <Link to={`/blog/${recentBlog?.slug}`} className="flex-1 p-4 rounded shadow bg-card flex flex-col justify-between hover:shadow-lg transition-shadow">
-              <div>
-                <h3 className="font-bold text-lg mb-2 text-text truncate lg:whitespace-normal">
+        <div className="grid grid-cols-2 gap-4 items-stretch content-stretch min-h-0">
+          <div className="flex flex-col h-full min-h-0">
+            <Link
+              to={`/blog/${recentBlog?.slug}`}
+              className="flex-1 min-h-0 overflow-hidden p-4 rounded shadow bg-card flex flex-col justify-between hover:shadow-lg transition-shadow"
+            >
+              <div className="min-h-0 overflow-hidden">
+                <h3 className="font-bold text-lg mb-2 text-text truncate">
                   {recentBlog?.title || "No blog posts yet"}
                 </h3>
-                <p className="text-textSecondary text-sm">
+                <p className="text-textSecondary text-sm truncate">
                   {recentBlog?.date || "Add your first post to get started"}
                 </p>
               </div>
             </Link>
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-4 shrink-0">
               <Link key="Blogs" to="/blog">
                 <Button className="h-12 text-center sm:w-fit w-full">
                   <span className="hidden [@media(min-width:406px)]:inline">
@@ -84,18 +100,21 @@ const Home: React.FC = () => {
             </div>
           </div>
 
-          <div className="flex flex-col h-full">
-            <Link to={`/projects?q=${encodeURIComponent(recentProject?.title || "")}`} className="flex-1 p-4 rounded shadow bg-card flex flex-col justify-between hover:shadow-lg transition-shadow">
-              <div>
-                <h3 className="font-bold text-lg mb-2 text-text truncate lg:whitespace-normal">
+          <div className="flex flex-col h-full min-h-0">
+            <Link
+              to={`/projects?q=${encodeURIComponent(recentProject?.title || "")}`}
+              className="flex-1 min-h-0 overflow-hidden p-4 rounded shadow bg-card flex flex-col justify-between hover:shadow-lg transition-shadow"
+            >
+              <div className="min-h-0 overflow-hidden">
+                <h3 className="font-bold text-lg mb-2 text-text truncate">
                   {recentProject?.title || "No projects yet"}
                 </h3>
-                <p className="text-textSecondary text-sm line-clamp-2 lg:line-clamp-none">
+                <p className="text-textSecondary text-sm line-clamp-2 break-words">
                   {recentProject?.description || "Add your first project to highlight your work."}
                 </p>
               </div>
             </Link>
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center mt-4 shrink-0">
               <Link key="Projects" to="/projects">
                 <Button className="h-12 sm:w-fit w-full text-center leading-none">
                   See More Projects
