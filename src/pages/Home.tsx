@@ -70,18 +70,6 @@ const Home: React.FC = () => {
             building software I actually use, and continuously learning to
             push the boundaries of AI and engineering.
           </p>
-          <div className="mt-2 flex flex-wrap items-center gap-2">
-            <Link to="/resume">
-              <Button variant="primary" size="sm">
-                View resume
-              </Button>
-            </Link>
-            <Link to="/contact">
-              <Button variant="ghost" size="sm">
-                Contact
-              </Button>
-            </Link>
-          </div>
           <div className="mt-2 flex flex-wrap gap-2">
             {experienceHighlights.slice(0, 3).map((item) => (
               <Link
