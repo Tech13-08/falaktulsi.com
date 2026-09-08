@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Link } from "react-router-dom";
+import Button from "./Button";
 
 const Navigation: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -16,26 +17,38 @@ const Navigation: React.FC = () => {
 
   return (
     <nav className="flex flex-col bg-card shadow-md">
-      <div className="flex justify-between items-center p-6">
-        <Link key="Home" to="/" className="text-xl text-text font-bold">
+      <div className="flex justify-between items-center gap-3 p-6">
+        <Link key="Home" to="/" className="text-xl text-text font-bold shrink-0">
           Home
         </Link>
 
-        <div className="hidden md:flex space-x-6 text-text">
+        <div className="hidden md:flex items-center space-x-6 text-text">
           {links.map((link) => (
             <Link key={link.name} to={link.href} className="hover:text-primary">
               {link.name}
             </Link>
           ))}
+          <Link to="/resume">
+            <Button variant="primary" size="sm">
+              Resume
+            </Button>
+          </Link>
         </div>
 
-        <button
-          className="md:hidden text-text"
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        <div className="flex md:hidden items-center gap-3">
+          <Link to="/resume">
+            <Button variant="primary" size="sm">
+              Resume
+            </Button>
+          </Link>
+          <button
+            className="text-text"
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       <div
