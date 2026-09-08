@@ -133,7 +133,7 @@ const Home: React.FC = () => {
                   {recentProject?.title || "No projects yet"}
                 </h3>
                 <p className="text-textSecondary text-xs line-clamp-2 break-words">
-                  {recentProject?.description || "Add your first project to highlight your work."}
+                  {recentProject?.outcome || recentProject?.description || "Add your first project to highlight your work."}
                 </p>
               </div>
             </Link>

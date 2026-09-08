@@ -22,6 +22,7 @@ const Projects: React.FC = () => {
     return projects.filter(
       (p) =>
         p.title.toLowerCase().includes(lowerQuery) ||
+        p.outcome?.toLowerCase().includes(lowerQuery) ||
         p.description?.toLowerCase().includes(lowerQuery),
     );
   }, [query]);
@@ -47,6 +48,7 @@ const Projects: React.FC = () => {
             <ProjectCard
               key={p.id}
               title={p.title}
+              outcome={p.outcome}
               description={p.description}
               code={p.code}
               demo={p.demo}

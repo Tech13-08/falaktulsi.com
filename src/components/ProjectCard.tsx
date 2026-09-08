@@ -4,6 +4,7 @@ import DefaultImage from "../assets/default-project.png";
 
 interface ProjectCardProps {
   title: string;
+  outcome?: string;
   description: string;
   image?: string;
   code?: string;
@@ -13,6 +14,7 @@ interface ProjectCardProps {
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
   title,
+  outcome,
   description,
   image,
   code,
@@ -167,9 +169,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       )}
 
       <div className="p-4 flex flex-col flex-1">
-        <h3 className="text-lg font-bold text-text mb-2 truncate">
+        <h3 className="text-lg font-bold text-text mb-1 truncate">
           {highlightMatch(title, query)}
         </h3>
+        {outcome && (
+          <p className="text-secondary text-sm font-semibold mb-2 leading-snug">
+            {highlightMatch(outcome, query)}
+          </p>
+        )}
         <div className="text-textSecondary text-sm flex-1 relative">
           {!expanded ? (
             <div className="leading-5">
