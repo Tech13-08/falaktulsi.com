@@ -21,7 +21,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   demo,
   query,
 }) => {
-  const buttonWidth = "8rem";
+  const buttonWidth = "7rem";
   const [expanded, setExpanded] = useState(false);
   const descriptionLimit = 75;
   const seeMoreLabel = "See more";
@@ -156,9 +156,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   return (
-    <div className="bg-card rounded-xl shadow overflow-hidden flex flex-col w-full max-w-xs min-h-[20rem]">
+    <div className="bg-card rounded-xl shadow overflow-hidden flex flex-col w-full max-w-xs min-h-[20rem] h-full">
       {!expanded && (
-        <div className="h-40 w-full">
+        <div className="h-32 w-full">
           <img
             src={image || DefaultImage}
             alt={title}
@@ -168,7 +168,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
       )}
 
-      <div className="p-4 flex flex-col flex-1">
+      <div className="p-3 flex flex-col flex-1">
         <h3 className="text-lg font-bold text-text mb-1 truncate">
           {highlightMatch(title, query)}
         </h3>
@@ -212,17 +212,19 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="flex mt-4">
             {code && !demo && (
               <Button
+                size="sm"
                 className="text-center"
                 style={{ width: `${buttonWidth}` }}
                 onClick={() => window.open(code, "_blank")}
               >
-                Source
+                Code
               </Button>
             )}
 
             {!code && demo && (
               <div className="ml-auto">
                 <Button
+                  size="sm"
                   className="text-center"
                   style={{ width: `${buttonWidth}` }}
                   onClick={() => window.open(demo, "_blank")}
@@ -236,13 +238,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             {code && demo && (
               <>
                 <Button
+                  size="sm"
                   className="text-center"
                   style={{ width: `${buttonWidth}` }}
                   onClick={() => window.open(code, "_blank")}
                 >
-                  Source
+                  Code
                 </Button>
                 <Button
+                  size="sm"
                   className="text-center ml-auto"
                   style={{ width: `${buttonWidth}` }}
                   onClick={() => window.open(demo, "_blank")}

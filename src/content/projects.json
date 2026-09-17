@@ -3,7 +3,7 @@
     "id": "personal-website",
     "title": "Personal Website",
     "outcome": "One-viewport recruiter snapshot with live theme switching",
-    "description": "React, TypeScript, and Tailwind portfolio with blog, project showcase, and contact — content managed through a custom Node.js CLI.",
+    "description": "React, TypeScript, and Tailwind portfolio with blog, project showcase, and contact \u2014 content managed through a custom Node.js CLI.",
     "code": "https://github.com/Tech13-08/falaktulsi.com",
     "demo": "https://falaktulsi.com",
     "image": "/images/personal-website-thumbnail.png"
@@ -16,5 +16,14 @@
     "code": "https://github.com/Tech13-08/pemonitor",
     "demo": "https://pemonitor.falaktulsi.com",
     "image": "/images/pemonitor-thumbnail.png"
+  },
+  {
+    "id": "sift",
+    "title": "Sift",
+    "outcome": "Daily inbox triage that keeps what would hurt to miss",
+    "description": "Go + Next.js product that watches linked Gmail via Pub/Sub, applies user rules plus a local LLM (keep vs skip), and delivers a timezone-aware digest on the web and Discord.",
+    "code": "https://github.com/Tech13-08/sift",
+    "demo": "https://sift.falaktulsi.com",
+    "image": "/images/sift-thumbnail.png"
   }
 ]
