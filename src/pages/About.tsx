@@ -6,11 +6,11 @@ import VolunteeringList from "../components/VolunteeringList";
 
 const About: React.FC = () => {
   return (
-    <div className="h-full min-h-0 box-border flex justify-center px-3 md:px-6 py-8 overflow-y-auto lg:overflow-hidden scrollbar-themed">
+    <div className="h-auto min-h-0 box-border flex justify-center px-3 md:px-6 py-8 overflow-visible lg:h-full lg:overflow-hidden">
       <div className="w-full max-w-6xl h-auto lg:h-full min-h-0 lg:overflow-hidden">
         <div className="grid grid-cols-1 lg:grid-cols-10 gap-8 h-auto lg:h-full min-h-0">
           {/* Favorites Column - 30% */}
-          <div className="lg:col-span-3 p-6 rounded-xl shadow bg-card hover:shadow-lg transition-shadow h-[320px] lg:h-full lg:min-h-0 flex flex-col overflow-hidden">
+          <div className="lg:col-span-3 p-6 rounded-xl shadow bg-card hover:shadow-lg transition-shadow min-h-[320px] lg:h-full lg:min-h-0 flex flex-col overflow-hidden">
             <h2 className="text-xl font-bold mb-5 text-text font-mono flex items-center gap-2">
               <span className="text-secondary">★</span> Favorites
             </h2>
@@ -50,7 +50,7 @@ const About: React.FC = () => {
               <EducationTimeline />
             </div>
 
-            <div className="p-8 rounded-xl shadow bg-card border-l-4 border-secondary hover:shadow-lg transition-shadow h-[480px] flex flex-col">
+            <div className="p-8 rounded-xl shadow bg-card border-l-4 border-secondary hover:shadow-lg transition-shadow min-h-[480px] lg:h-[480px] flex flex-col">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-2 h-2 rounded-full bg-secondary" />
                 <h2 className="text-2xl font-bold text-text font-mono">

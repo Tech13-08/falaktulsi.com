@@ -26,11 +26,13 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
   }, []);
 
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-background">
+    <div className="min-h-screen lg:h-screen flex flex-col overflow-x-hidden lg:overflow-hidden bg-background">
       <div className="shrink-0">
         <Navigation />
       </div>
-      <main className="flex flex-col flex-1 min-h-0 overflow-hidden justify-center">{children}</main>
+      <main className="flex flex-col flex-none lg:flex-1 min-h-0 overflow-visible lg:overflow-hidden justify-start lg:justify-center">
+        {children}
+      </main>
       <div className="shrink-0">
         <Footer />
       </div>
