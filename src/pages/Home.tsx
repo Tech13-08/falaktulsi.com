@@ -35,7 +35,7 @@ const Home: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col lg:flex-row p-6 lg:p-8 gap-6 lg:gap-8 h-full overflow-y-auto lg:overflow-hidden scrollbar-themed">
+    <div className="flex flex-col lg:flex-row p-6 lg:p-8 gap-6 lg:gap-8 h-auto lg:h-full overflow-visible lg:overflow-hidden scrollbar-themed">
       {showAll && (
         <TechnologiesModal
           technologies={technologies}
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
         />
       </div>
       <div
-        className="flex-1 flex flex-col gap-4 justify-center min-h-0
+        className="flex-none lg:flex-1 flex flex-col gap-4 justify-start lg:justify-center min-h-0
                   order-1 lg:order-none"
       >
         <div className="shrink-0">
@@ -93,7 +93,7 @@ const Home: React.FC = () => {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-3 items-stretch content-stretch shrink-0 max-h-[38%] lg:max-h-[34%]">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 items-stretch content-stretch shrink-0 max-h-none lg:max-h-[34%]">
           <div className="flex flex-col h-full min-h-0 overflow-hidden">
             <Link
               to={`/blog/${recentBlog?.slug}`}
